@@ -1,6 +1,12 @@
 package com.arimattitoivonen.questlog.domain;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class Game {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String description;
@@ -8,9 +14,9 @@ public class Game {
     private String imageURL;
     private String yearPublished;
 
-    public Game () {
-        
-    } 
+    public Game() {
+
+    }
 
     public Game(String title, String description, String genre, String imageURL, String yearPublished) {
         this.title = title;
@@ -74,5 +80,4 @@ public class Game {
                 + ", imageURL=" + imageURL + ", yearPublished=" + yearPublished + "]";
     }
 
-    
 }
