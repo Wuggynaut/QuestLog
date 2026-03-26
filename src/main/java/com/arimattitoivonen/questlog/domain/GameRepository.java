@@ -1,5 +1,7 @@
 package com.arimattitoivonen.questlog.domain;
 
-public interface GameRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface GameRepository extends CrudRepository<Game, Long> {
 
 }

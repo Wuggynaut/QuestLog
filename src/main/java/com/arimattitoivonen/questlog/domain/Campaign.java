@@ -3,6 +3,8 @@ package com.arimattitoivonen.questlog.domain;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 public class Campaign {
     @Id
@@ -10,6 +12,9 @@ public class Campaign {
     private Long id;
     private String name;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
     private Game game;
     private AppUser user;
     private String status; // ONGOING, DISCONTINUED or FINISHED

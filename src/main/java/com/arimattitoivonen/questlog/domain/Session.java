@@ -2,8 +2,19 @@ package com.arimattitoivonen.questlog.domain;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 public class Session {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
     private Campaign campaign;
     private LocalDate date;
     private Integer duration;
