@@ -1,18 +1,24 @@
 package com.arimattitoivonen.questlog.domain;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class Campaign {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String description;
-    private String game;
-    private String user;
-    private String status;
+    private Game game;
+    private AppUser user;
+    private String status; // ONGOING, DISCONTINUED or FINISHED
 
     public Campaign() {
 
     }
 
-    public Campaign(String name, String description, String game, String user, String status) {
+    public Campaign(String name, String description, Game game, AppUser user, String status) {
         this.name = name;
         this.description = description;
         this.game = game;
@@ -44,19 +50,19 @@ public class Campaign {
         this.description = description;
     }
 
-    public String getGame() {
+    public Game getGame() {
         return game;
     }
 
-    public void setGame(String game) {
+    public void setGame(Game game) {
         this.game = game;
     }
 
-    public String getUser() {
+    public AppUser getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(AppUser user) {
         this.user = user;
     }
 

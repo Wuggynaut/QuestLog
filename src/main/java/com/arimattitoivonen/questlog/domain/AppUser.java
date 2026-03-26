@@ -1,14 +1,16 @@
 package com.arimattitoivonen.questlog.domain;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 public class AppUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     private String username;
-
     private String passwordHash;
-
-    private String role;
+    private String role; // ADMIN or USER
 
     public AppUser() {
 

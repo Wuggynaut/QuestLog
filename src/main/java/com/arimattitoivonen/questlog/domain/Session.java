@@ -4,17 +4,17 @@ import java.time.LocalDate;
 
 public class Session {
     private Long id;
-    private String campaign;
+    private Campaign campaign;
     private LocalDate date;
     private Integer duration;
     private String notes;
-    private String role;
+    private String role; // Player or GM
 
     public Session() {
 
     }
 
-    public Session(String campaign, LocalDate date, Integer duration, String notes, String role) {
+    public Session(Campaign campaign, LocalDate date, Integer duration, String notes, String role) {
         this.campaign = campaign;
         this.date = date;
         this.duration = duration;
@@ -30,11 +30,11 @@ public class Session {
         this.id = id;
     }
 
-    public String getCampaign() {
+    public Campaign getCampaign() {
         return campaign;
     }
 
-    public void setCampaign(String campaign) {
+    public void setCampaign(Campaign campaign) {
         this.campaign = campaign;
     }
 
