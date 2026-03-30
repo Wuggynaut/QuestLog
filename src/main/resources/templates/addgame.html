@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add game</title>
+</head>
+<body>
+    <h1>Add new game</h1>
+    <form method="post" action="#" th:action="@{/savegame}" th:object="${game}">
+        <p>Title:
+            <label><input type="text" th:field="*{title}" /></label>
+        </p>
+        <p>Description:
+            <label><input type="text" th:field="*{description}" /></label>
+        </p>
+        <p>Genre:
+            <label><input type="text" th:field="*{genre}" /></label>
+        </p>
+        <p>Year published:
+            <label><input type="text" th:field="*{yearPublished}" /></label>
+        </p>
+        <p>
+            <input type="submit" value="Submit game" />
+        </p>
+    </form>
+</body>
+</html>
