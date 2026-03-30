@@ -13,7 +13,7 @@ import com.arimattitoivonen.questlog.domain.GameRepository;
 @Controller
 public class GameController {
 
-    private GameRepository gameRepository;
+    private final GameRepository gameRepository;
 
     // Constructor injection
     public GameController(GameRepository gameRepository) {
@@ -46,7 +46,7 @@ public class GameController {
 
     @GetMapping("/editgame/{id}")
     public String editGame(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("game", gameRepository.findById(id));
+        model.addAttribute("game", gameRepository.findById(id).orElseThrow());
         return "editgame";
     }
 }

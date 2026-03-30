@@ -11,7 +11,22 @@
     <h1>Edit game</h1>
 
     <form method="post" action="#" th:action="@{../savegame}" th:object="${game}">
-
+        <input type="hidden" th:field="*{id}" />
+        <p>Title:
+            <label><input type="text" th:field="*{title}"/></label>
+        </p>
+        <p>Description:
+            <label><input type="text" th:field="*{description}"/></label>
+        </p>
+        <p>Genre:
+            <label><input type="text" th:field="*{genre}" /></label>
+        </p>
+        <p>Year published:
+            <label><input type="text" th:field="*{yearPublished}" /></label>
+        </p>
+        <p>
+            <input type="submit" value="Submit game" />
+        </p>
     </form>
 </body>
 </html>
