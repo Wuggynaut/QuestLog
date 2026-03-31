@@ -1,5 +1,6 @@
 package com.arimattitoivonen.questlog.web;
 
+import com.arimattitoivonen.questlog.domain.GenreRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +15,12 @@ import com.arimattitoivonen.questlog.domain.GameRepository;
 public class GameController {
 
     private final GameRepository gameRepository;
+    private final GenreRepository genreRepository;
 
     // Constructor injection
-    public GameController(GameRepository gameRepository) {
+    public GameController(GameRepository gameRepository, GenreRepository genreRepository) {
         this.gameRepository = gameRepository;
+        this.genreRepository = genreRepository;
     }
 
     @GetMapping("/gamelist")
@@ -29,6 +32,7 @@ public class GameController {
     @GetMapping("/addgame")
     public String addGame(Model model) {
         model.addAttribute("game", new Game());
+        model.addAttribute("genres", genreRepository.findAll());
         return "addgame";
     }
 
@@ -47,6 +51,7 @@ public class GameController {
     @GetMapping("/editgame/{id}")
     public String editGame(@PathVariable("id") Long id, Model model) {
         model.addAttribute("game", gameRepository.findById(id).orElseThrow());
+        model.addAttribute("genres", genreRepository.findAll());
         return "editgame";
     }
 }

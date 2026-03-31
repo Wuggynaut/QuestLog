@@ -17,7 +17,12 @@
             <label><input type="text" th:field="*{description}" /></label>
         </p>
         <p>Genre:
-            <label><input type="text" th:field="*{genre}" /></label>
+            <label th:each="genre : ${genres}">
+                <input type="checkbox"
+                       th:value="${genre.id}"
+                />
+                <span th:text="${genre.name}"></span>
+            </label>
         </p>
         <p>Year published:
             <label><input type="text" th:field="*{yearPublished}" /></label>

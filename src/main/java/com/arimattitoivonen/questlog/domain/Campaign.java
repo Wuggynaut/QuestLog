@@ -1,11 +1,8 @@
 package com.arimattitoivonen.questlog.domain;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+@Entity(name = "campaign")
 public class Campaign {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,6 +13,8 @@ public class Campaign {
     @ManyToOne
     @JoinColumn(name = "id")
     private Game game;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private AppUser user;
     private String status; // ONGOING, DISCONTINUED or FINISHED
 
