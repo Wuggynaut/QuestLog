@@ -16,6 +16,7 @@ public class Session {
     @ManyToOne
     @JoinColumn(name = "id")
     private Campaign campaign;
+    private Game game;
     private LocalDate date;
     private Integer duration;
     private String notes;
@@ -25,13 +26,15 @@ public class Session {
 
     }
 
-    public Session(Campaign campaign, LocalDate date, Integer duration, String notes, String role) {
+    public Session(Campaign campaign, Game game, LocalDate date, Integer duration, String notes, String role) {
         this.campaign = campaign;
+        this.game = game;
         this.date = date;
         this.duration = duration;
         this.notes = notes;
         this.role = role;
     }
+
 
     public Long getId() {
         return id;
@@ -47,6 +50,14 @@ public class Session {
 
     public void setCampaign(Campaign campaign) {
         this.campaign = campaign;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public LocalDate getDate() {
@@ -83,8 +94,14 @@ public class Session {
 
     @Override
     public String toString() {
-        return "Session [id=" + id + ", campaign=" + campaign + ", date=" + date + ", duration=" + duration + ", notes="
-                + notes + ", role=" + role + "]";
+        return "Session{" +
+                "id=" + id +
+                ", campaign=" + campaign +
+                ", game=" + game +
+                ", date=" + date +
+                ", duration=" + duration +
+                ", notes='" + notes + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
-
 }
