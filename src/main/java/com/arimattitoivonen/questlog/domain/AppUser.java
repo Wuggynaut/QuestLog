@@ -1,9 +1,6 @@
 package com.arimattitoivonen.questlog.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "user")
 public class AppUser {
@@ -12,13 +9,14 @@ public class AppUser {
     private long id;
     private String username;
     private String passwordHash;
-    private String role; // ADMIN or USER
+    @Enumerated(EnumType.STRING)
+    private Enums.UserRole role; // ADMIN or USER
 
     public AppUser() {
 
     }
 
-    public AppUser(String username, String passwordHash, String role) {
+    public AppUser(String username, String passwordHash, Enums.UserRole role) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.role = role;
@@ -48,11 +46,11 @@ public class AppUser {
         this.passwordHash = passwordHash;
     }
 
-    public String getRole() {
+    public Enums.UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Enums.UserRole role) {
         this.role = role;
     }
 

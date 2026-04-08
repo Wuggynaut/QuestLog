@@ -11,18 +11,19 @@ public class Campaign {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "game_id")
     private Game game;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser user;
-    private String status; // ONGOING, DISCONTINUED or FINISHED
+    @Enumerated(EnumType.STRING)
+    private Enums.CampaignStatus status; // ONGOING, DISCONTINUED or FINISHED
 
     public Campaign() {
 
     }
 
-    public Campaign(String name, String description, Game game, AppUser user, String status) {
+    public Campaign(String name, String description, Game game, AppUser user, Enums.CampaignStatus status) {
         this.name = name;
         this.description = description;
         this.game = game;
@@ -70,11 +71,11 @@ public class Campaign {
         this.user = user;
     }
 
-    public String getStatus() {
+    public Enums.CampaignStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Enums.CampaignStatus status) {
         this.status = status;
     }
 

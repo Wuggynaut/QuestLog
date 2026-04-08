@@ -2,31 +2,31 @@ package com.arimattitoivonen.questlog.domain;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+@Entity
 public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "campaign_id")
     private Campaign campaign;
+    @ManyToOne
+    @JoinColumn(name = "game_id")
     private Game game;
     private LocalDate date;
     private Integer duration;
     private String notes;
-    private String role; // Player or GM
+    @Enumerated(EnumType.STRING)
+    private Enums.SessionRole role; // Player or GM
 
     public Session() {
 
     }
 
-    public Session(Campaign campaign, Game game, LocalDate date, Integer duration, String notes, String role) {
+    public Session(Campaign campaign, Game game, LocalDate date, Integer duration, String notes, Enums.SessionRole role) {
         this.campaign = campaign;
         this.game = game;
         this.date = date;
@@ -84,11 +84,11 @@ public class Session {
         this.notes = notes;
     }
 
-    public String getRole() {
+    public Enums.SessionRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Enums.SessionRole role) {
         this.role = role;
     }
 

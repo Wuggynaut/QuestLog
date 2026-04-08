@@ -12,7 +12,6 @@ public class Game {
     private Long id;
     private String title;
     private String description;
-    private String genre;
     private String imageURL;
     private String yearPublished;
     @ManyToMany
@@ -30,7 +29,6 @@ public class Game {
     public Game(String title, String description, String genre, String imageURL, String yearPublished, List<Genre> genres) {
         this.title = title;
         this.description = description;
-        this.genre = genre;
         this.imageURL = imageURL;
         this.yearPublished = yearPublished;
         this.genres = genres;
@@ -58,14 +56,6 @@ public class Game {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public String getImageURL() {
@@ -98,7 +88,6 @@ public class Game {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", genre='" + genre + '\'' +
                 ", imageURL='" + imageURL + '\'' +
                 ", yearPublished='" + yearPublished + '\'' +
                 ", genres=" + genres +
