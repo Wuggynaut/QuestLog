@@ -18,8 +18,14 @@
         <p>Description:
             <label><input type="text" th:field="*{description}"/></label>
         </p>
-        <p>Genre:
-            <label><input type="text" th:field="*{genres}" /></label>
+        <p>
+            <label th:each="genre : ${genres}">Genre:
+                <input type="checkbox"
+                       name="genreIds"
+                       th:value="${genre.id}"
+                       th:checked="${game.genres.contains(genre)}" />
+                <span th:text="${genre.name}"></span>
+            </label>
         </p>
         <p>Year published:
             <label><input type="text" th:field="*{yearPublished}" /></label>

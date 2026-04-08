@@ -1,9 +1,6 @@
 package com.arimattitoivonen.questlog.web;
 
-import com.arimattitoivonen.questlog.domain.CampaignRepository;
-import com.arimattitoivonen.questlog.domain.GameRepository;
-import com.arimattitoivonen.questlog.domain.Session;
-import com.arimattitoivonen.questlog.domain.SessionRepository;
+import com.arimattitoivonen.questlog.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +32,7 @@ public class SessionController {
         model.addAttribute("session", new Session());
         model.addAttribute("campaigns", campaignRepository.findAll());
         model.addAttribute("games", gameRepository.findAll());
+        model.addAttribute("roles", Enums.SessionRole.values());
         return "addsession";
     }
 
@@ -43,11 +41,22 @@ public class SessionController {
         model.addAttribute("session", sessionRepository.findById(id).orElseThrow());
         model.addAttribute("campaigns", campaignRepository.findAll());
         model.addAttribute("games", gameRepository.findAll());
+        model.addAttribute("roles", Enums.SessionRole.values());
         return "editsession";
     }
 
     @PostMapping("/savesession")
     public String saveSession(@ModelAttribute Session session) {
+        if (session.getCampaign() != null) {
+            Campaign campaign = campaignRepository.findById(session.getCampaign().getId()).orElse(null);
+            session.setCampaign(campaign);
+            assert campaign != null;
+            session.setGame(campaign.getGame()); // If session belongs to a campaign, always get the game field from the campaign.
+        } else {
+            session.setCampaign(null); // The session is a one-shot, and doesn't belong in a campaign
+            Game game = gameRepository.findById(session.getGame().getId()).orElseThrow();
+            session.setGame(game);
+        }
         sessionRepository.save(session);
         return "redirect:sessionlist";
     }

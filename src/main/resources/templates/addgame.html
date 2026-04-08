@@ -20,8 +20,8 @@
             <label th:each="genre : ${genres}">
                 Genre:
                 <input type="checkbox"
-                       th:value="${genre.id}"
-                />
+                       name="genreIds"
+                       th:value="${genre.id}" />
                 <span th:text="${genre.name}"></span>
             </label>
         </p>

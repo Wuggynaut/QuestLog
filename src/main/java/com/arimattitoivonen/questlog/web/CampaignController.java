@@ -38,7 +38,7 @@ public class CampaignController {
 
     @GetMapping("/editcampaign/{id}")
     public String editCampaign(@PathVariable Long id, Model model) {
-        model.addAttribute("campaign", campaignRepository.findById(id));
+        model.addAttribute("campaign", campaignRepository.findById(id).orElseThrow());
         model.addAttribute("games", gameRepository.findAll());
         model.addAttribute("statuses", Enums.CampaignStatus.values());
         return "editcampaign";

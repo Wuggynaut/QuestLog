@@ -1,15 +1,16 @@
 package com.arimattitoivonen.questlog.web;
 
+import com.arimattitoivonen.questlog.domain.Genre;
 import com.arimattitoivonen.questlog.domain.GenreRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.arimattitoivonen.questlog.domain.Game;
 import com.arimattitoivonen.questlog.domain.GameRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class GameController {
@@ -37,7 +38,15 @@ public class GameController {
     }
 
     @PostMapping("/savegame")
-    public String saveGame(@ModelAttribute Game game) {
+    public String saveGame(@ModelAttribute Game game,
+                           @RequestParam(value = "genreIds", required = false)List<Long> genreIds) {
+        if (genreIds != null) {
+            List<Genre> selectedGenres = new ArrayList<>();
+            genreRepository.findAllById(genreIds).forEach(selectedGenres::add);
+            game.setGenres(selectedGenres);
+        } else {
+            game.setGenres(new ArrayList<>());
+        }
         gameRepository.save(game);
         return "redirect:gamelist";
     }
