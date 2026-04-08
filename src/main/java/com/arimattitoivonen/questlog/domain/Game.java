@@ -26,7 +26,7 @@ public class Game {
 
     }
 
-    public Game(String title, String description, String genre, String imageURL, String yearPublished, List<Genre> genres) {
+    public Game(String title, String description, List<Genre> genres, String imageURL, String yearPublished) {
         this.title = title;
         this.description = description;
         this.imageURL = imageURL;
