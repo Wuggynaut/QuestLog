@@ -17,7 +17,7 @@ public class Campaign {
     @JoinColumn(name = "user_id")
     private AppUser user;
     @Enumerated(EnumType.STRING)
-    private Enums.CampaignStatus status; // ONGOING, DISCONTINUED or FINISHED
+    private Enums.CampaignStatus status; // Active, Completed, Discontinued
 
     public Campaign() {
 

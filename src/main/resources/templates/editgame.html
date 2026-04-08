@@ -8,7 +8,7 @@
     <title>Edit Game</title>
 </head>
 <body>
-    <h1>Edit game</h1>
+    <h1>Edit Game</h1>
 
     <form method="post" action="#" th:action="@{../savegame}" th:object="${game}">
         <input type="hidden" th:field="*{id}" />
@@ -19,7 +19,7 @@
             <label><input type="text" th:field="*{description}"/></label>
         </p>
         <p>Genre:
-            <label><input type="text" th:field="*{genre}" /></label>
+            <label><input type="text" th:field="*{genres}" /></label>
         </p>
         <p>Year published:
             <label><input type="text" th:field="*{yearPublished}" /></label>

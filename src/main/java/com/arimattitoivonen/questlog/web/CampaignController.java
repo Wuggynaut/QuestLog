@@ -1,9 +1,6 @@
 package com.arimattitoivonen.questlog.web;
 
-import com.arimattitoivonen.questlog.domain.AppUserRepository;
-import com.arimattitoivonen.questlog.domain.Campaign;
-import com.arimattitoivonen.questlog.domain.CampaignRepository;
-import com.arimattitoivonen.questlog.domain.GameRepository;
+import com.arimattitoivonen.questlog.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +23,7 @@ public class CampaignController {
 
     @GetMapping("/campaignlist")
     public String getCampaigns(Model model) {
-        model.addAttribute("campaign", campaignRepository.findAll());
+        model.addAttribute("campaigns", campaignRepository.findAll());
         return "campaignlist";
     }
     
@@ -35,12 +32,15 @@ public class CampaignController {
         model.addAttribute("campaign", new Campaign());
         model.addAttribute("games", gameRepository.findAll());
         model.addAttribute("users", appUserRepository.findAll());
+        model.addAttribute("statuses", Enums.CampaignStatus.values());
         return "addcampaign";
     }
 
     @GetMapping("/editcampaign/{id}")
     public String editCampaign(@PathVariable Long id, Model model) {
         model.addAttribute("campaign", campaignRepository.findById(id));
+        model.addAttribute("games", gameRepository.findAll());
+        model.addAttribute("statuses", Enums.CampaignStatus.values());
         return "editcampaign";
     }
 

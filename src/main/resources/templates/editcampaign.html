@@ -8,6 +8,34 @@
     <title>Edit Campaign</title>
 </head>
 <body>
+    <h1>Edit Campaign</h1>
 
+    <form method="post" action="#" th:action="@{../savecampaign}" th:object="${campaign}">
+        <input type="hidden" th:field="*{id}" />
+        <p>
+            <label>Name: <input type="text" th:field="*{name}" /></label>
+        </p>
+        <p>
+            <label>Description: <input type="text" th:field="*{description}" /></label>
+        </p>
+        <p>
+            <label>Game:
+                <select th:field="*{game.id}" class="form-control">
+                    <option th:each="gam : ${games}" th:value="${gam.id}" th:text="${gam.title}">
+                        game
+                    </option>
+                </select>
+            </label>
+        </p>
+        <p>
+            <label th:each="status : ${statuses}">
+                Campaign Status:
+                <input type="radio" th:field="*{status}" th:value="${status}" th:text="${status}" />
+            </label>
+        </p>
+        <p>
+            <input type="submit" value="Save Campaign" />
+        </p>
+    </form>
 </body>
 </html>
