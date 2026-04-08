@@ -44,7 +44,7 @@ public class GenreController {
 
     @GetMapping("/editgenre/{id}")
     public String editGenre(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("genre", genreRepository.findById(id));
+        model.addAttribute("genre", genreRepository.findById(id).orElseThrow());
         return "editgenre";
     }
 }

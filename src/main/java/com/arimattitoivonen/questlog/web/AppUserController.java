@@ -2,6 +2,7 @@ package com.arimattitoivonen.questlog.web;
 
 import com.arimattitoivonen.questlog.domain.AppUser;
 import com.arimattitoivonen.questlog.domain.AppUserRepository;
+import com.arimattitoivonen.questlog.domain.Enums;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,14 @@ public class AppUserController {
     @GetMapping("/adduser")
     public String addUser(Model model) {
         model.addAttribute("user", new AppUser());
+        model.addAttribute("roles", Enums.UserRole.values());
         return "adduser";
     }
 
     @GetMapping("/edituser/{id}")
     public String editUser(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", appUserRepository.findById(id).orElseThrow());
+        model.addAttribute("roles", Enums.UserRole.values());
         return "edituser";
     }
 
