@@ -29,15 +29,11 @@ public class QuestlogApplication {
 		return (args) -> {
 			log.info("Creating example genres and games");
 
-			Genre fantasy = new Genre("Fantasy",null);
-			Genre scifi = new Genre("Science Fiction", null);
-			Genre horror = new Genre("Horror", null);
-			Genre osr = new Genre("OSR", null);
-			Genre modern = new Genre("Modern", null);
-			genreRepository.save(fantasy);
-			genreRepository.save(scifi);
-			genreRepository.save(horror);
-			genreRepository.save(osr);
+			Genre fantasy = genreRepository.save(new Genre("Fantasy", null));
+			Genre scifi = genreRepository.save(new Genre("Science Fiction", null));
+			Genre horror = genreRepository.save(new Genre("Horror", null));
+			Genre osr = genreRepository.save(new Genre("OSR", null));
+			Genre modern = genreRepository.save(new Genre("Modern", null));
 
 			Game dnd = new Game("Dungeons & Dragons 5th edition", "Heroic fantasy roleplaying", List.of(fantasy), null, "2014");
 			Game ose = new Game("Old-School Essentials", "Old-school fantasy roleplaying", List.of(fantasy,osr), null, "2019");

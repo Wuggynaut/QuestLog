@@ -16,9 +16,8 @@
         <p>
             <label>Description: <input type="text" th:field="*{description}" /></label>
         </p>
-        <p>
+        <p>Genre:
             <label th:each="genre : ${genres}">
-                Genre:
                 <input type="checkbox"
                        name="genreIds"
                        th:value="${genre.id}" />

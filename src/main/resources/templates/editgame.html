@@ -12,14 +12,14 @@
 
     <form method="post" action="#" th:action="@{../savegame}" th:object="${game}">
         <input type="hidden" th:field="*{id}" />
-        <p>Title:
-            <label><input type="text" th:field="*{title}"/></label>
-        </p>
-        <p>Description:
-            <label><input type="text" th:field="*{description}"/></label>
+        <p>
+            <label>Title: <input type="text" th:field="*{title}"/></label>
         </p>
         <p>
-            <label th:each="genre : ${genres}">Genre:
+            <label>Description: <input type="text" th:field="*{description}"/></label>
+        </p>
+        <p>Genre:
+            <label th:each="genre : ${genres}">
                 <input type="checkbox"
                        name="genreIds"
                        th:value="${genre.id}"
@@ -27,8 +27,8 @@
                 <span th:text="${genre.name}"></span>
             </label>
         </p>
-        <p>Year published:
-            <label><input type="text" th:field="*{yearPublished}" /></label>
+        <p>
+            <label>Year published: <input type="text" th:field="*{yearPublished}" /></label>
         </p>
         <p>
             <input type="submit" value="Submit game" />

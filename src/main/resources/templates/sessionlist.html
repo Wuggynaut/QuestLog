@@ -20,16 +20,16 @@
         <th>Notes</th>
         <th></th>
     </tr>
-    <tr th:each="session : ${sessions}">
-        <td th:text="${session.date}"></td>
-        <td th:text="${session.game.title}"></td>
-        <td th:text="${session.campaign != null ? session.campaign.name : 'One-shot'}"></td>
-        <td th:text="${session.duration}"></td>
-        <td th:text="${session.role}"></td>
-        <td th:text="${session.notes}"></td>
+    <tr th:each="s : ${sessions}">
+        <td th:text="${s.date}"></td>
+        <td th:text="${s.game.title}"></td>
+        <td th:text="${s.campaign != null ? s.campaign.name : 'One-shot'}"></td>
+        <td th:text="${s.duration}"></td>
+        <td th:text="${s.role}"></td>
+        <td th:text="${s.notes}"></td>
         <td>
-            <a th:href="@{/editsession/{id}(id=${session.id})}">Edit</a>
-            <a th:href="@{/deletesession/{id}(id=${session.id})}">Delete</a>
+            <a th:href="@{/editsession/{id}(id=${s.id})}">Edit</a>
+            <a th:href="@{/deletesession/{id}(id=${s.id})}">Delete</a>
         </td>
     </tr>
 </table>

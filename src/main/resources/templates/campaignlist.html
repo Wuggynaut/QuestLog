@@ -21,8 +21,8 @@
         <tr th:each="campaign : ${campaigns}">
             <td th:text="${campaign.name}">Name</td>
             <td th:text="${campaign.description}">Description</td>
-            <td th:text="${campaign.game}">Game</td>
-            <td th:text="${campaign.user}">User</td> <!--This field may be temporary-->
+            <td th:text="${campaign.game.title}">Game</td>
+            <td th:text="${campaign.user.username}">User</td> <!--This field may be temporary-->
             <td th:text="${campaign.status}">Status</td>
             <td>
                 <a th:href="@{/editcampaign/{id}(id=${campaign.id})}" class="btn">Edit</a>

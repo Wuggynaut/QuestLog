@@ -20,7 +20,11 @@
         <tr th:each="game : ${games}">
             <td th:text="${game.title}">title</td>
             <td th:text="${game.description}">description</td>
-            <td th:text="${game.genres}">genre</td>
+            <td>
+                <span th:each="genre, iter : ${game.genres}"
+                      th:text="${genre.name + (iter.last ? '' : ', ')}">
+                </span>
+            </td>
             <td th:text="${game.yearPublished}">year</td>
 
             <td>

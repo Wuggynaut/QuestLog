@@ -47,7 +47,7 @@ public class SessionController {
 
     @PostMapping("/savesession")
     public String saveSession(@ModelAttribute Session session) {
-        if (session.getCampaign() != null) {
+        if (session.getCampaign() != null && session.getCampaign().getId() != null) {
             Campaign campaign = campaignRepository.findById(session.getCampaign().getId()).orElse(null);
             session.setCampaign(campaign);
             assert campaign != null;
