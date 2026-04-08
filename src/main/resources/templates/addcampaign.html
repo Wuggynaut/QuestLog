@@ -28,7 +28,7 @@
         <!--User field: This may be temporary, pending authentication implementation -->
         <p>
             <label>User:
-                <select th:field="*{user}" class="form-control">
+                <select th:field="*{user.id}" class="form-control">
                     <option th:each="usr : ${users}" th:value="${usr.id}" th:text="${usr.username}">
                         game
                     </option>

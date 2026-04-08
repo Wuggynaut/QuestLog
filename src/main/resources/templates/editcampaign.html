@@ -27,6 +27,7 @@
                 </select>
             </label>
         </p>
+        <input type="hidden" th:field="*{user.id}" />
         <p>
             <label th:each="status : ${statuses}">
                 Campaign Status:
