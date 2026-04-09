@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -52,8 +53,9 @@ public class QuestlogApplication {
 
 			log.info("Creating users, campaigns and sessions");
 
-			AppUser arttu = new AppUser("arttu", "placeholder", Enums.UserRole.USER);
-			AppUser admin = new AppUser("admin", "placeholder", Enums.UserRole.ADMIN);
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			AppUser arttu = appUserRepository.save(new AppUser("arttu", encoder.encode("password"), Enums.UserRole.USER));
+			AppUser admin = appUserRepository.save(new AppUser("admin", encoder.encode("admin"), Enums.UserRole.ADMIN));
 			appUserRepository.save(arttu);
 			appUserRepository.save(admin);
 

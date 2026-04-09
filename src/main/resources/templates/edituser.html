@@ -16,7 +16,9 @@
             <label>Username: <input type="text" th:field="*{username}" /></label>
         </p>
         <p>
-            <label>Password: <input type="password" th:field="*{passwordHash}" /></label>
+            <label>Password:
+                <input type="password" th:field="*{passwordHash}" placeholder="Leave blank to keep unchanged" />
+            </label>
         </p>
         <p>
             <label th:each="r : ${roles}">
