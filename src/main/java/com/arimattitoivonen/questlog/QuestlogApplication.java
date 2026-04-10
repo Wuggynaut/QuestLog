@@ -66,15 +66,15 @@ public class QuestlogApplication {
 			campaignRepository.save(dndCampaign);
 			campaignRepository.save(cairnCampaign);
 
-			sessionRepository.save(new Session(uaCampaign, coc, LocalDate.of(2024, 1, 12), 180, "First session, arrived in New Orleans", Enums.SessionRole.Player));
-			sessionRepository.save(new Session(uaCampaign, coc, LocalDate.of(2024, 1, 26), 210, "Investigated the mysterious disco", Enums.SessionRole.Player));
-			sessionRepository.save(new Session(uaCampaign, coc, LocalDate.of(2024, 2, 9), 195, "Entered the basement", Enums.SessionRole.Player));
-			sessionRepository.save(new Session(dndCampaign, dnd, LocalDate.of(2023, 6, 3), 240, "Players arrived in Khel", Enums.SessionRole.GM));
-			sessionRepository.save(new Session(dndCampaign, dnd, LocalDate.of(2023, 6, 17), 220, "Players spent the entire session gambling", Enums.SessionRole.GM));
-			sessionRepository.save(new Session(cairnCampaign, ose, LocalDate.of(2024, 3, 2), 180, "The town's temple is encased with a golden dome", Enums.SessionRole.GM));
-			sessionRepository.save(new Session(cairnCampaign, ose, LocalDate.of(2024, 3, 16), 200, "Players went to the woods searching for answers", Enums.SessionRole.GM));
+			sessionRepository.save(new Session(uaCampaign, coc, LocalDate.of(2024, 1, 12), 180, "First session, arrived in New Orleans", Enums.SessionRole.Player, arttu));
+			sessionRepository.save(new Session(uaCampaign, coc, LocalDate.of(2024, 1, 26), 210, "Investigated the mysterious disco", Enums.SessionRole.Player, arttu));
+			sessionRepository.save(new Session(uaCampaign, coc, LocalDate.of(2024, 2, 9), 195, "Entered the basement", Enums.SessionRole.Player, arttu));
+			sessionRepository.save(new Session(dndCampaign, dnd, LocalDate.of(2023, 6, 3), 240, "Players arrived in Khel", Enums.SessionRole.GM, arttu));
+			sessionRepository.save(new Session(dndCampaign, dnd, LocalDate.of(2023, 6, 17), 220, "Players spent the entire session gambling", Enums.SessionRole.GM, arttu));
+			sessionRepository.save(new Session(cairnCampaign, ose, LocalDate.of(2024, 3, 2), 180, "The town's temple is encased with a golden dome", Enums.SessionRole.GM, arttu));
+			sessionRepository.save(new Session(cairnCampaign, ose, LocalDate.of(2024, 3, 16), 200, "Players went to the woods searching for answers", Enums.SessionRole.GM, arttu));
 
-			sessionRepository.save(new Session(null, mosh, LocalDate.of(2024, 2, 14), 240, "One-shot: The Haunting of Ypsilon-14", Enums.SessionRole.GM));
+			sessionRepository.save(new Session(null, mosh, LocalDate.of(2024, 2, 14), 240, "One-shot: The Haunting of Ypsilon-14", Enums.SessionRole.GM, arttu));
 		};
 	}
 

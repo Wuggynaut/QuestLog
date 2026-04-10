@@ -25,16 +25,6 @@
                 </select>
             </label>
         </p>
-        <!--User field: This may be temporary, pending authentication implementation -->
-        <p>
-            <label>User:
-                <select th:field="*{user.id}" class="form-control">
-                    <option th:each="usr : ${users}" th:value="${usr.id}" th:text="${usr.username}">
-                        game
-                    </option>
-                </select>
-            </label>
-        </p>
         <p>Campaign Status:
             <label th:each="status : ${statuses}">
                 <input type="radio" th:field="*{status}" th:value="${status}" th:text="${status}" />

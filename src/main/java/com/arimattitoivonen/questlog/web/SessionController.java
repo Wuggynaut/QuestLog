@@ -1,6 +1,7 @@
 package com.arimattitoivonen.questlog.web;
 
 import com.arimattitoivonen.questlog.domain.*;
+import com.arimattitoivonen.questlog.service.AppUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,23 +15,27 @@ public class SessionController {
     private final SessionRepository sessionRepository;
     private final CampaignRepository campaignRepository;
     private final GameRepository gameRepository;
+    private final AppUserService appUserService;
 
-    public SessionController(SessionRepository sessionRepository, CampaignRepository campaignRepository, GameRepository gameRepository) {
+    public SessionController(SessionRepository sessionRepository, CampaignRepository campaignRepository, GameRepository gameRepository, AppUserService appUserService) {
         this.sessionRepository = sessionRepository;
         this.campaignRepository = campaignRepository;
         this.gameRepository = gameRepository;
+        this.appUserService = appUserService;
     }
 
     @GetMapping("/sessionlist")
     public String getSessions(Model model) {
-        model.addAttribute("sessions", sessionRepository.findAll());
+        AppUser currentUser = appUserService.getCurrentUser();
+        model.addAttribute("sessions", sessionRepository.findByUser(currentUser));
         return "sessionlist";
     }
 
     @GetMapping("/addsession")
     public String addSession(Model model) {
+        AppUser currentUser = appUserService.getCurrentUser();
         model.addAttribute("session", new Session());
-        model.addAttribute("campaigns", campaignRepository.findAll());
+        model.addAttribute("campaigns", campaignRepository.findByUser(currentUser));
         model.addAttribute("games", gameRepository.findAll());
         model.addAttribute("roles", Enums.SessionRole.values());
         return "addsession";
@@ -38,8 +43,13 @@ public class SessionController {
 
     @GetMapping("/editsession/{id}")
     public String editSession(@PathVariable Long id, Model model) {
-        model.addAttribute("session", sessionRepository.findById(id).orElseThrow());
-        model.addAttribute("campaigns", campaignRepository.findAll());
+        AppUser currentUser = appUserService.getCurrentUser();
+        Session session = sessionRepository.findById(id).orElseThrow();
+        if (!session.getUser().getId().equals(currentUser.getId())) {
+            return "redirect:/sessionlist";
+        }
+        model.addAttribute("session", session);
+        model.addAttribute("campaigns", campaignRepository.findByUser(currentUser));
         model.addAttribute("games", gameRepository.findAll());
         model.addAttribute("roles", Enums.SessionRole.values());
         return "editsession";
@@ -47,6 +57,8 @@ public class SessionController {
 
     @PostMapping("/savesession")
     public String saveSession(@ModelAttribute Session session) {
+        AppUser currentUser = appUserService.getCurrentUser();
+        session.setUser(currentUser);
         if (session.getCampaign() != null && session.getCampaign().getId() != null) {
             Campaign campaign = campaignRepository.findById(session.getCampaign().getId()).orElse(null);
             session.setCampaign(campaign);
@@ -63,6 +75,11 @@ public class SessionController {
 
     @GetMapping("/deletesession/{id}")
     public String deleteSession(@PathVariable Long id) {
+        AppUser currentUser = appUserService.getCurrentUser();
+        Session session = sessionRepository.findById(id).orElseThrow();
+        if (!session.getUser().getId().equals(currentUser.getId())) {
+            return "redirect:/sessionlist";
+        }
         sessionRepository.deleteById(id);
         return "redirect:../sessionlist";
     }

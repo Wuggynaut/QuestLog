@@ -20,21 +20,24 @@ public class Session {
     private Integer duration;
     private String notes;
     @Enumerated(EnumType.STRING)
-    private Enums.SessionRole role; // Player or GM
+    private Enums.SessionRole role;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private AppUser user;// Player or GM
 
     public Session() {
 
     }
 
-    public Session(Campaign campaign, Game game, LocalDate date, Integer duration, String notes, Enums.SessionRole role) {
+    public Session(Campaign campaign, Game game, LocalDate date, Integer duration, String notes, Enums.SessionRole role, AppUser user) {
         this.campaign = campaign;
         this.game = game;
         this.date = date;
         this.duration = duration;
         this.notes = notes;
         this.role = role;
+        this.user = user;
     }
-
 
     public Long getId() {
         return id;
@@ -90,6 +93,14 @@ public class Session {
 
     public void setRole(Enums.SessionRole role) {
         this.role = role;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 
     @Override

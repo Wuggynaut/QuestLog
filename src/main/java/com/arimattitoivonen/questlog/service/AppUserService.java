@@ -3,6 +3,7 @@ package com.arimattitoivonen.questlog.service;
 import com.arimattitoivonen.questlog.domain.AppUser;
 import com.arimattitoivonen.questlog.domain.AppUserRepository;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +16,11 @@ public class AppUserService implements UserDetailsService {
 
     public AppUserService(AppUserRepository repository) {
         this.repository = repository;
+    }
+
+    public AppUser getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return repository.findByUsername(username);
     }
 
     @Override

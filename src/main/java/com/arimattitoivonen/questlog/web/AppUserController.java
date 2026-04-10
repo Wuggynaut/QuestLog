@@ -3,6 +3,7 @@ package com.arimattitoivonen.questlog.web;
 import com.arimattitoivonen.questlog.domain.AppUser;
 import com.arimattitoivonen.questlog.domain.AppUserRepository;
 import com.arimattitoivonen.questlog.domain.Enums;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,4 +64,5 @@ public class AppUserController {
         appUserRepository.deleteById(id);
         return "redirect:../userlist";
     }
+
 }
