@@ -27,7 +27,11 @@ public class CampaignController {
     @GetMapping("/campaignlist")
     public String getCampaigns(Model model) {
         AppUser currentUser = appUserService.getCurrentUser();
-        model.addAttribute("campaigns", campaignRepository.findByUser(currentUser));
+        if (currentUser.getRole() == Enums.UserRole.ADMIN) {
+            model.addAttribute("campaigns", campaignRepository.findAll());
+        } else {
+            model.addAttribute("campaigns", campaignRepository.findByUser(currentUser));
+        }
         return "campaignlist";
     }
     
@@ -44,7 +48,7 @@ public class CampaignController {
     public String editCampaign(@PathVariable Long id, Model model) {
         AppUser currentUser = appUserService.getCurrentUser();
         Campaign campaign = campaignRepository.findById(id).orElseThrow();
-        if (!campaign.getUser().getId().equals(currentUser.getId())) {
+        if (currentUser.getRole() != Enums.UserRole.ADMIN && !campaign.getUser().getId().equals(currentUser.getId())) {
             return "redirect:/campaignlist";
         }
         model.addAttribute("campaign", campaign);
@@ -56,7 +60,12 @@ public class CampaignController {
     @PostMapping("savecampaign")
     public String saveCampaign (@ModelAttribute Campaign campaign) {
         AppUser currentUser = appUserService.getCurrentUser();
-        campaign.setUser(currentUser);
+        if (campaign.getId() == null || campaign.getId() == 0) {
+            campaign.setUser(currentUser);
+        } else {
+            Campaign existing = campaignRepository.findById(campaign.getId()).orElseThrow();
+            campaign.setUser(existing.getUser());
+        }
         campaignRepository.save(campaign);
         return "redirect:campaignlist";
     }
@@ -65,7 +74,7 @@ public class CampaignController {
     public String deleteCampaign(@PathVariable Long id, Model model) {
         AppUser currentUser = appUserService.getCurrentUser();
         Campaign campaign = campaignRepository.findById(id).orElseThrow();
-        if (!campaign.getUser().getId().equals(currentUser.getId())) {
+        if (currentUser.getRole() != Enums.UserRole.ADMIN && !campaign.getUser().getId().equals(currentUser.getId())) {
             return "redirect:/campaignlist";
         }
         campaignRepository.deleteById(id);

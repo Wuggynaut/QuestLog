@@ -27,15 +27,23 @@ public class SessionController {
     @GetMapping("/sessionlist")
     public String getSessions(Model model) {
         AppUser currentUser = appUserService.getCurrentUser();
-        model.addAttribute("sessions", sessionRepository.findByUser(currentUser));
+        if (currentUser.getRole() == Enums.UserRole.ADMIN) {
+            model.addAttribute("sessions", sessionRepository.findAll());
+        } else {
+            model.addAttribute("sessions", sessionRepository.findByUser(currentUser));
+        }
         return "sessionlist";
     }
 
     @GetMapping("/addsession")
     public String addSession(Model model) {
         AppUser currentUser = appUserService.getCurrentUser();
+        if (currentUser.getRole() == Enums.UserRole.ADMIN) {
+            model.addAttribute("campaigns", campaignRepository.findAll());
+        } else {
+            model.addAttribute("campaigns", campaignRepository.findByUser(currentUser));
+        }
         model.addAttribute("session", new Session());
-        model.addAttribute("campaigns", campaignRepository.findByUser(currentUser));
         model.addAttribute("games", gameRepository.findAll());
         model.addAttribute("roles", Enums.SessionRole.values());
         return "addsession";
@@ -45,11 +53,16 @@ public class SessionController {
     public String editSession(@PathVariable Long id, Model model) {
         AppUser currentUser = appUserService.getCurrentUser();
         Session session = sessionRepository.findById(id).orElseThrow();
-        if (!session.getUser().getId().equals(currentUser.getId())) {
+        if (currentUser.getRole() != Enums.UserRole.ADMIN &&
+                !session.getUser().getId().equals(currentUser.getId())) {
             return "redirect:/sessionlist";
         }
+        if (currentUser.getRole() == Enums.UserRole.ADMIN) {
+            model.addAttribute("campaigns", campaignRepository.findAll());
+        } else {
+            model.addAttribute("campaigns", campaignRepository.findByUser(currentUser));
+        }
         model.addAttribute("session", session);
-        model.addAttribute("campaigns", campaignRepository.findByUser(currentUser));
         model.addAttribute("games", gameRepository.findAll());
         model.addAttribute("roles", Enums.SessionRole.values());
         return "editsession";
@@ -58,14 +71,19 @@ public class SessionController {
     @PostMapping("/savesession")
     public String saveSession(@ModelAttribute Session session) {
         AppUser currentUser = appUserService.getCurrentUser();
-        session.setUser(currentUser);
+        if (session.getId() == null || session.getId() == 0) {
+            session.setUser(currentUser);
+        } else {
+            Session existing = sessionRepository.findById(session.getId()).orElseThrow();
+            session.setUser(existing.getUser());
+        }
         if (session.getCampaign() != null && session.getCampaign().getId() != null) {
             Campaign campaign = campaignRepository.findById(session.getCampaign().getId()).orElse(null);
             session.setCampaign(campaign);
             assert campaign != null;
-            session.setGame(campaign.getGame()); // If session belongs to a campaign, always get the game field from the campaign.
+            session.setGame(campaign.getGame());
         } else {
-            session.setCampaign(null); // The session is a one-shot, and doesn't belong in a campaign
+            session.setCampaign(null);
             Game game = gameRepository.findById(session.getGame().getId()).orElseThrow();
             session.setGame(game);
         }
@@ -77,7 +95,8 @@ public class SessionController {
     public String deleteSession(@PathVariable Long id) {
         AppUser currentUser = appUserService.getCurrentUser();
         Session session = sessionRepository.findById(id).orElseThrow();
-        if (!session.getUser().getId().equals(currentUser.getId())) {
+        if (currentUser.getRole() != Enums.UserRole.ADMIN &&
+                !session.getUser().getId().equals(currentUser.getId())) {
             return "redirect:/sessionlist";
         }
         sessionRepository.deleteById(id);

@@ -1,14 +1,24 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <body>
 <nav th:fragment="nav">
     <a href="/">Home</a> |
     <a href="/gamelist">Games</a> |
-    <a href="/campaignlist">Campaigns</a> |
-    <a href="/sessionlist">Sessions</a> |
-    <a href="/genrelist">Genres</a> |
-    <a href="/userlist">Users</a> |
-    <a th:href="@{/logout}">Logout</a>
+    <span sec:authorize="isAuthenticated()">
+        <a href="/campaignlist">Campaigns</a> |
+        <a href="/sessionlist">Sessions</a> |
+    </span>
+    <span sec:authorize="hasRole('ADMIN')">
+        <a href="/genrelist">Genres</a> |
+        <a href="/userlist">Users</a> |
+    </span>
+    <form sec:authorize="!isAuthenticated()" th:action="@{/login}" method="get" style="display:inline">
+        <button type="submit">Login</button>
+    </form>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" style="display:inline">
+        <button type="submit">Logout</button>
+    </form>
 </nav>
 <hr/>
 </body>

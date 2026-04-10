@@ -55,26 +55,33 @@ public class QuestlogApplication {
 
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			AppUser arttu = appUserRepository.save(new AppUser("arttu", encoder.encode("password"), Enums.UserRole.USER));
-			AppUser admin = appUserRepository.save(new AppUser("admin", encoder.encode("admin"), Enums.UserRole.ADMIN));
-			appUserRepository.save(arttu);
-			appUserRepository.save(admin);
+			AppUser demo  = appUserRepository.save(new AppUser("demo",  encoder.encode("password"), Enums.UserRole.USER));
+			AppUser admin = appUserRepository.save(new AppUser("admin", encoder.encode("admin"),    Enums.UserRole.ADMIN));
 
-			Campaign uaCampaign = new Campaign("Hotel California", "Strange happenings in NOLA", ua, arttu, Enums.CampaignStatus.Active);
-			Campaign dndCampaign = new Campaign("Khel", "What happens in Khel, stays in Khel", dnd, arttu, Enums.CampaignStatus.Completed);
-			Campaign cairnCampaign = new Campaign("The Forgotten Era", "Mystery of the Woods", cairn, arttu, Enums.CampaignStatus.Active);
-			campaignRepository.save(uaCampaign);
-			campaignRepository.save(dndCampaign);
-			campaignRepository.save(cairnCampaign);
+			// Arttu's campaigns
+			Campaign uaCampaign   = campaignRepository.save(new Campaign("Hotel California", "Strange happenings in NOLA", ua,   arttu, Enums.CampaignStatus.Active));
+			Campaign dndCampaign  = campaignRepository.save(new Campaign("Khel", "What happens in Khel, stays in Khel",   dnd,  arttu, Enums.CampaignStatus.Completed));
+			Campaign cairnCampaign = campaignRepository.save(new Campaign("The Forgotten Era", "Mystery of the Woods",    cairn, arttu, Enums.CampaignStatus.Active));
 
-			sessionRepository.save(new Session(uaCampaign, coc, LocalDate.of(2024, 1, 12), 180, "First session, arrived in New Orleans", Enums.SessionRole.Player, arttu));
-			sessionRepository.save(new Session(uaCampaign, coc, LocalDate.of(2024, 1, 26), 210, "Investigated the mysterious disco", Enums.SessionRole.Player, arttu));
-			sessionRepository.save(new Session(uaCampaign, coc, LocalDate.of(2024, 2, 9), 195, "Entered the basement", Enums.SessionRole.Player, arttu));
-			sessionRepository.save(new Session(dndCampaign, dnd, LocalDate.of(2023, 6, 3), 240, "Players arrived in Khel", Enums.SessionRole.GM, arttu));
-			sessionRepository.save(new Session(dndCampaign, dnd, LocalDate.of(2023, 6, 17), 220, "Players spent the entire session gambling", Enums.SessionRole.GM, arttu));
-			sessionRepository.save(new Session(cairnCampaign, ose, LocalDate.of(2024, 3, 2), 180, "The town's temple is encased with a golden dome", Enums.SessionRole.GM, arttu));
-			sessionRepository.save(new Session(cairnCampaign, ose, LocalDate.of(2024, 3, 16), 200, "Players went to the woods searching for answers", Enums.SessionRole.GM, arttu));
-
+			sessionRepository.save(new Session(uaCampaign,  ua,   LocalDate.of(2024, 1, 12), 180, "First session, arrived in New Orleans",       Enums.SessionRole.Player, arttu));
+			sessionRepository.save(new Session(uaCampaign,  ua,   LocalDate.of(2024, 1, 26), 210, "Investigated the mysterious disco",            Enums.SessionRole.Player, arttu));
+			sessionRepository.save(new Session(uaCampaign,  ua,   LocalDate.of(2024, 2,  9), 195, "Entered the basement",                         Enums.SessionRole.Player, arttu));
+			sessionRepository.save(new Session(dndCampaign, dnd,  LocalDate.of(2023, 6,  3), 240, "Players arrived in Khel",                      Enums.SessionRole.GM,     arttu));
+			sessionRepository.save(new Session(dndCampaign, dnd,  LocalDate.of(2023, 6, 17), 220, "Players spent the entire session gambling",     Enums.SessionRole.GM,     arttu));
+			sessionRepository.save(new Session(cairnCampaign, ose, LocalDate.of(2024, 3,  2), 180, "The town's temple is encased with a golden dome", Enums.SessionRole.GM,  arttu));
+			sessionRepository.save(new Session(cairnCampaign, ose, LocalDate.of(2024, 3, 16), 200, "Players went to the woods searching for answers",  Enums.SessionRole.GM,  arttu));
 			sessionRepository.save(new Session(null, mosh, LocalDate.of(2024, 2, 14), 240, "One-shot: The Haunting of Ypsilon-14", Enums.SessionRole.GM, arttu));
+
+			// Demo user's campaigns
+			Campaign moshrpg = campaignRepository.save(new Campaign("Dead Planet", "Stranded on a derelict vessel", mosh, demo, Enums.CampaignStatus.Active));
+			Campaign cocCampaign = campaignRepository.save(new Campaign("Masks of Nyarlathotep", "Globe-trotting cosmic horror", coc, demo, Enums.CampaignStatus.Active));
+
+			sessionRepository.save(new Session(moshrpg,    mosh, LocalDate.of(2024, 5,  4), 200, "Boarded the Alexis",                           Enums.SessionRole.GM,     demo));
+			sessionRepository.save(new Session(moshrpg,    mosh, LocalDate.of(2024, 5, 18), 210, "Found the first body",                         Enums.SessionRole.GM,     demo));
+			sessionRepository.save(new Session(moshrpg,    mosh, LocalDate.of(2024, 6,  1), 190, "Things in the cargo hold",                     Enums.SessionRole.GM,     demo));
+			sessionRepository.save(new Session(cocCampaign, coc, LocalDate.of(2024, 4, 10), 240, "New York - gathering the investigators",        Enums.SessionRole.Player, demo));
+			sessionRepository.save(new Session(cocCampaign, coc, LocalDate.of(2024, 4, 24), 230, "London - the Ju-Ju house",                     Enums.SessionRole.Player, demo));
+			sessionRepository.save(new Session(null, godbound, LocalDate.of(2024, 3, 22), 180, "One-shot: The Throne of Salt", Enums.SessionRole.Player, demo));
 		};
 	}
 

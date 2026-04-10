@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,12 +27,12 @@
                           th:text="${genre.name + (iter.last ? '' : ', ')}"></span>
             </td>
             <td th:text="${game.yearPublished}">year</td>
-            <td>
+            <td sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{/editgame/{id}(id=${game.id})}">Edit</a>
                 <a th:href="@{/deletegame/{id}(id=${game.id})}">Delete</a>
             </td>
         </tr>
     </table>
-<p><a href="/addgame">Add Game</a></p>
+    <p sec:authorize="hasRole('ADMIN')"><a href="/addgame">Add Game</a></p>
 </body>
 </html>

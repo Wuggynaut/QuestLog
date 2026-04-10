@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +10,13 @@
     <div th:replace="~{fragments :: nav}"></div>
 
     <h1>Sessions</h1>
-    <p><a href="/addsession">Add New Session</a></p>
 
     <table>
         <tr>
             <th>Date</th>
             <th>Game</th>
             <th>Campaign</th>
+            <th sec:authorize="hasRole('ADMIN')">User</th>
             <th>Duration (min)</th>
             <th>Role</th>
             <th>Notes</th>
@@ -25,6 +26,7 @@
             <td th:text="${s.date}"></td>
             <td th:text="${s.game.title}"></td>
             <td th:text="${s.campaign != null ? s.campaign.name : 'One-shot'}"></td>
+            <td sec:authorize="hasRole('ADMIN')" th:text="${s.user.username}"></td>
             <td th:text="${s.duration}"></td>
             <td th:text="${s.role}"></td>
             <td th:text="${s.notes}"></td>
@@ -34,5 +36,6 @@
             </td>
         </tr>
     </table>
+    <p><a href="/addsession">Add New Session</a></p>
 </body>
 </html>
