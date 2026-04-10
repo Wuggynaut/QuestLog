@@ -12,7 +12,6 @@ public class Game {
     private Long id;
     private String title;
     private String description;
-    private String imageURL;
     private String yearPublished;
     @ManyToMany
     @JoinTable(
@@ -26,10 +25,9 @@ public class Game {
 
     }
 
-    public Game(String title, String description, List<Genre> genres, String imageURL, String yearPublished) {
+    public Game(String title, String description, List<Genre> genres, String yearPublished) {
         this.title = title;
         this.description = description;
-        this.imageURL = imageURL;
         this.yearPublished = yearPublished;
         this.genres = genres;
     }
@@ -58,14 +56,6 @@ public class Game {
         this.description = description;
     }
 
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
     public String getYearPublished() {
         return yearPublished;
     }
@@ -88,7 +78,6 @@ public class Game {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", imageURL='" + imageURL + '\'' +
                 ", yearPublished='" + yearPublished + '\'' +
                 ", genres=" + genres +
                 '}';

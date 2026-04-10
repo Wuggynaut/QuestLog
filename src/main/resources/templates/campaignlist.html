@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campaign List</title>
 </head>
 <body>
+    <div th:replace="~{fragments :: nav}"></div>
+
     <h1>Campaigns</h1>
 
     <table>
@@ -15,25 +15,20 @@
             <th>Name</th>
             <th>Description</th>
             <th>Game</th>
-            <th>User</th> <!--This field may be temporary, pending authentication implementation -->
             <th>Status</th>
+            <th></th>
         </tr>
         <tr th:each="campaign : ${campaigns}">
             <td th:text="${campaign.name}">Name</td>
             <td th:text="${campaign.description}">Description</td>
             <td th:text="${campaign.game.title}">Game</td>
-            <td th:text="${campaign.user.username}">User</td> <!--This field may be temporary-->
             <td th:text="${campaign.status}">Status</td>
             <td>
-                <a th:href="@{/editcampaign/{id}(id=${campaign.id})}" class="btn">Edit</a>
-            </td>
-            <td>
-                <a th:href="@{/deletecampaign/{id}(id=${campaign.id})}" class="btn">Delete</a>
+                <a th:href="@{/editcampaign/{id}(id=${campaign.id})}">Edit</a>
+                <a th:href="@{/deletecampaign/{id}(id=${campaign.id})}">Delete</a>
             </td>
         </tr>
     </table>
-    <p>
-        <a href="/addcampaign" class="btn">New Campaign</a>
-    </p>
+    <p><a href="/addcampaign">New Campaign</a></p>
 </body>
 </html>

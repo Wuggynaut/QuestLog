@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Campaign</title>
 </head>
 <body>
+    <div th:replace="~{fragments :: nav}"></div>
+
     <h1>Add Campaign</h1>
     <form method="post" action="#" th:action="@{/savecampaign}" th:object="${campaign}">
         <p>
@@ -18,10 +18,8 @@
         </p>
         <p>
             <label>Game:
-                <select th:field="*{game.id}" class="form-control">
-                    <option th:each="gam : ${games}" th:value="${gam.id}" th:text="${gam.title}">
-                        game
-                    </option>
+                <select th:field="*{game.id}">
+                    <option th:each="gam : ${games}" th:value="${gam.id}" th:text="${gam.title}">game</option>
                 </select>
             </label>
         </p>
@@ -30,9 +28,7 @@
                 <input type="radio" th:field="*{status}" th:value="${status}" th:text="${status}" />
             </label>
         </p>
-        <p>
-            <input type="submit" value="Add Campaign" />
-        </p>
+        <p><input type="submit" value="Add Campaign" /></p>
     </form>
 </body>
 </html>

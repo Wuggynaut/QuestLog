@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="nav">
+    <a href="/">Home</a> |
+    <a href="/gamelist">Games</a> |
+    <a href="/campaignlist">Campaigns</a> |
+    <a href="/sessionlist">Sessions</a> |
+    <a href="/genrelist">Genres</a> |
+    <a href="/userlist">Users</a> |
+    <a th:href="@{/logout}">Logout</a>
+</nav>
+<hr/>
+</body>
+</html>

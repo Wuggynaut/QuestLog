@@ -26,10 +26,10 @@ QuestLog is a CRUD application designed for tabletop role-playing gamers who wan
 
 ## Database Structure
 
-| Table    | Attributes                                                             |
-|----------|------------------------------------------------------------------------|
-| User     | id, username, password, role (USER/ADMIN)                              |
-| Game     | id, title, description, genre (string), image URL, year published      |
-| Campaign | id, name, description, game (FK), user (FK), status (ACTIVE/COMPLETED) |
-| Session  | id, campaign (FK), date, duration in minutes, notes, role (PLAYER/GM)  |
-| Genre    | id, name, games (List)                                                 |
+| Table    | Attributes                                                                       |
+|----------|----------------------------------------------------------------------------------|
+| User     | id, username, password, role (USER/ADMIN)                                        |
+| Game     | id, title, description, genre (string), year published                           |
+| Campaign | id, name, description, game (FK), user (FK), status (ACTIVE/COMPLETED)           |
+| Session  | id, campaign (FK), user (FK), date, duration in minutes, notes, role (PLAYER/GM) |
+| Genre    | id, name, games (List)                                                           |

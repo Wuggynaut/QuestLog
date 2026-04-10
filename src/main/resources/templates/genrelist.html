@@ -2,30 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genre List</title>
 </head>
 <body>
+    <div th:replace="~{fragments :: nav}"></div>
+
     <h1>Genres</h1>
 
     <table>
         <tr>
             <th>Name</th>
+            <th></th>
         </tr>
         <tr th:each="genre : ${genres}">
             <td th:text="${genre.name}">name</td>
             <td>
                 <a th:href="@{/editgenre/{id}(id=${genre.id})}">Edit</a>
-            </td>
-            <td>
                 <a th:href="@{/deletegenre/{id}(id=${genre.id})}">Delete</a>
             </td>
         </tr>
     </table>
-    <p>
-        <a href="/addgenre">Add Genre</a>
-    </p>
+    <p><a href="/addgenre">Add Genre</a></p>
 </body>
 </html>
+ 

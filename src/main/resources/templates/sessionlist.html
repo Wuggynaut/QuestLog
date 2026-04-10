@@ -2,37 +2,37 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Campaign</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session List</title>
 </head>
 <body>
-<h1>Sessions</h1>
-<a th:href="@{/addsession}">Add new session</a>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Game</th>
-        <th>Campaign</th>
-        <th>Duration (min)</th>
-        <th>Role</th>
-        <th>Notes</th>
-        <th></th>
-    </tr>
-    <tr th:each="s : ${sessions}">
-        <td th:text="${s.date}"></td>
-        <td th:text="${s.game.title}"></td>
-        <td th:text="${s.campaign != null ? s.campaign.name : 'One-shot'}"></td>
-        <td th:text="${s.duration}"></td>
-        <td th:text="${s.role}"></td>
-        <td th:text="${s.notes}"></td>
-        <td>
-            <a th:href="@{/editsession/{id}(id=${s.id})}">Edit</a>
-            <a th:href="@{/deletesession/{id}(id=${s.id})}">Delete</a>
-        </td>
-    </tr>
-</table>
+    <div th:replace="~{fragments :: nav}"></div>
+
+    <h1>Sessions</h1>
+    <p><a href="/addsession">Add New Session</a></p>
+
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Game</th>
+            <th>Campaign</th>
+            <th>Duration (min)</th>
+            <th>Role</th>
+            <th>Notes</th>
+            <th></th>
+        </tr>
+        <tr th:each="s : ${sessions}">
+            <td th:text="${s.date}"></td>
+            <td th:text="${s.game.title}"></td>
+            <td th:text="${s.campaign != null ? s.campaign.name : 'One-shot'}"></td>
+            <td th:text="${s.duration}"></td>
+            <td th:text="${s.role}"></td>
+            <td th:text="${s.notes}"></td>
+            <td>
+                <a th:href="@{/editsession/{id}(id=${s.id})}">Edit</a>
+                <a th:href="@{/deletesession/{id}(id=${s.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
 </body>
-</html>
 </html>

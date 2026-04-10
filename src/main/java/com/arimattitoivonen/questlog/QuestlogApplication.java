@@ -36,13 +36,13 @@ public class QuestlogApplication {
 			Genre osr = genreRepository.save(new Genre("OSR", null));
 			Genre modern = genreRepository.save(new Genre("Modern", null));
 
-			Game dnd = new Game("Dungeons & Dragons 5th edition", "Heroic fantasy roleplaying", List.of(fantasy), null, "2014");
-			Game ose = new Game("Old-School Essentials", "Old-school fantasy roleplaying", List.of(fantasy,osr), null, "2019");
-			Game coc = new Game("Call of Cthulhu 7th edition", "Horror roleplaying based on the stories of H.P. Lovecraft", List.of(horror), null, "2016");
-			Game mosh = new Game("Mothership 1st edition", "Horror roleplaying in space", List.of(scifi, horror, osr), null, "2024");
-			Game cairn = new Game("Cairn 2e", "Rules-lite fantasy roleplaying", List.of(fantasy, osr), null, "2025");
-			Game ua = new Game("Unknown Armies 3rd edition", "Post-modern fantasy roleplaying", List.of(fantasy, modern), null, "2017");
-			Game godbound = new Game("Godbound", "Game of fantasy demigods", List.of(fantasy), null, "2016");
+			Game dnd = new Game("Dungeons & Dragons 5th edition", "Heroic fantasy roleplaying", List.of(fantasy), "2014");
+			Game ose = new Game("Old-School Essentials", "Old-school fantasy roleplaying", List.of(fantasy,osr), "2019");
+			Game coc = new Game("Call of Cthulhu 7th edition", "Horror roleplaying based on the stories of H.P. Lovecraft", List.of(horror), "2016");
+			Game mosh = new Game("Mothership 1st edition", "Horror roleplaying in space", List.of(scifi, horror, osr), "2024");
+			Game cairn = new Game("Cairn 2e", "Rules-lite fantasy roleplaying", List.of(fantasy, osr), "2025");
+			Game ua = new Game("Unknown Armies 3rd edition", "Post-modern fantasy roleplaying", List.of(fantasy, modern), "2017");
+			Game godbound = new Game("Godbound", "Game of fantasy demigods", List.of(fantasy), "2016");
 			gameRepository.save(dnd);
 			gameRepository.save(ose);
 			gameRepository.save(coc);

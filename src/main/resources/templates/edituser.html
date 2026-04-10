@@ -2,14 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
 </head>
 <body>
-    <h1>Edit User</h1>
+    <div th:replace="~{fragments :: nav}"></div>
 
+    <h1>Edit User</h1>
     <form method="post" action="#" th:action="@{../saveuser}" th:object="${user}">
         <input type="hidden" th:field="*{id}" />
         <p>
@@ -20,15 +19,12 @@
                 <input type="password" th:field="*{passwordHash}" placeholder="Leave blank to keep unchanged" />
             </label>
         </p>
-        <p>
+        <p>Role:
             <label th:each="r : ${roles}">
-                Role:
                 <input type="radio" th:field="*{role}" th:value="${r}" th:text="${r}" />
             </label>
         </p>
-        <p>
-            <input type="submit" value="Save User" />
-        </p>
+        <p><input type="submit" value="Save User" /></p>
     </form>
 </body>
 </html>

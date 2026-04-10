@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game List</title>
 </head>
 <body>
+    <div th:replace="~{fragments :: nav}"></div>
+
     <h1>Games</h1>
 
     <table>
@@ -16,25 +16,22 @@
             <th>Description</th>
             <th>Genre</th>
             <th>Year Published</th>
+            <th></th>
         </tr>
         <tr th:each="game : ${games}">
             <td th:text="${game.title}">title</td>
             <td th:text="${game.description}">description</td>
             <td>
-                <span th:each="genre, iter : ${game.genres}"
-                      th:text="${genre.name + (iter.last ? '' : ', ')}">
-                </span>
+                    <span th:each="genre, iter : ${game.genres}"
+                          th:text="${genre.name + (iter.last ? '' : ', ')}"></span>
             </td>
             <td th:text="${game.yearPublished}">year</td>
-
             <td>
-                <a th:href="@{/editgame/{id}(id=${game.id})}" class="btn">Edit</a>
-            </td>
-            <td>
-                <a th:href="@{/deletegame/{id}(id=${game.id})}" class="btn">Delete</a>
+                <a th:href="@{/editgame/{id}(id=${game.id})}">Edit</a>
+                <a th:href="@{/deletegame/{id}(id=${game.id})}">Delete</a>
             </td>
         </tr>
     </table>
-    <a href="/addgame" class="btn">Add Game</a>
+<p><a href="/addgame">Add Game</a></p>
 </body>
 </html>

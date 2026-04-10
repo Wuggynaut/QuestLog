@@ -2,12 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuestLog</title>
 </head>
 <body>
+<div th:replace="~{fragments :: nav}"></div>
 
+<h1>QuestLog</h1>
+<p>Track your tabletop RPG sessions, campaigns, and games.</p>
+
+<ul>
+    <li><a href="/gamelist">Browse games</a></li>
+    <li><a href="/login">Log in</a> to track your campaigns and sessions</li>
+</ul>
 </body>
 </html>

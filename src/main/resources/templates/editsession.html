@@ -2,48 +2,45 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Campaign</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Session</title>
 </head>
 <body>
-<h1>Edit Session</h1>
-<form method="post" action="#" th:action="@{../savesession}" th:object="${session}">
-    <input type="hidden" th:field="*{id}" />
-    <p>
-        <label>Game:
-            <select th:field="*{game.id}" class="form-control">
-                <option th:each="gam : ${games}" th:value="${gam.id}" th:text="${gam.title}">game</option>
-            </select>
-        </label>
-    </p>
-    <p>
-        <label>Campaign (optional):
-            <select th:field="*{campaign.id}" class="form-control">
-                <option value="">-- One-shot (no campaign) --</option>
-                <option th:each="camp : ${campaigns}" th:value="${camp.id}" th:text="${camp.name}">campaign</option>
-            </select>
-        </label>
-    </p>
-    <p>
-        <label>Date: <input type="date" th:field="*{date}" /></label>
-    </p>
-    <p>
-        <label>Duration (minutes): <input type="number" th:field="*{duration}" /></label>
-    </p>
-    <p>
-        <label>Notes: <textarea th:field="*{notes}"></textarea></label>
-    </p>
-    <p>
-        Role:
-        <label th:each="r : ${roles}">
-            <input type="radio" th:field="*{role}" th:value="${r}" th:text="${r}" />
-        </label>
-    </p>
-    <p>
-        <input type="submit" value="Save Session" />
-    </p>
-</form>
+    <div th:replace="~{fragments :: nav}"></div>
+
+    <h1>Edit Session</h1>
+    <form method="post" action="#" th:action="@{../savesession}" th:object="${session}">
+        <input type="hidden" th:field="*{id}" />
+        <p>
+            <label>Campaign (optional):
+                <select th:field="*{campaign.id}">
+                    <option value="">-- One-shot (no campaign) --</option>
+                    <option th:each="camp : ${campaigns}" th:value="${camp.id}" th:text="${camp.name}">campaign</option>
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>Game (for one-shots):
+                <select th:field="*{game.id}">
+                    <option th:each="gam : ${games}" th:value="${gam.id}" th:text="${gam.title}">game</option>
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>Date: <input type="date" th:field="*{date}" /></label>
+        </p>
+        <p>
+            <label>Duration (minutes): <input type="number" th:field="*{duration}" /></label>
+        </p>
+        <p>
+            <label>Notes: <textarea th:field="*{notes}"></textarea></label>
+        </p>
+        <p>Role:
+            <label th:each="r : ${roles}">
+                <input type="radio" th:field="*{role}" th:value="${r}" th:text="${r}" />
+            </label>
+        </p>
+        <p><input type="submit" value="Save Session" /></p>
+    </form>
 </body>
 </html>
